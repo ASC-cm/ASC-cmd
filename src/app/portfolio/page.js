@@ -418,7 +418,7 @@ export default function PortfolioPage() {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4 italic">
-                  "{testimonial.content}"
+                  &apos;{testimonial.content}&apos;
                 </p>
                 <div className="flex text-yellow-400">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -473,7 +473,7 @@ export default function PortfolioPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              Whether you need a custom solution or expert consultation, I'm
+              Whether you need a custom solution or expert consultation, I&apos;m
               here to help bring your ideas to life.
             </motion.p>
             <motion.a
@@ -488,7 +488,7 @@ export default function PortfolioPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              <FaWhatsapp className="mr-2" /> Let's Discuss Your Project
+              <FaWhatsapp className="mr-2" /> Let&apos;s Discuss Your Project
             </motion.a>
           </motion.div>
         </div>

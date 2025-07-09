@@ -166,7 +166,7 @@ const AboutPage = () => {
               viewport={{ once: true }}
             >
               At ASC-cm, we believe in building a bridge between skill and
-              innovation. We're dedicated to equipping individuals and
+              innovation. We&apos;re dedicated to equipping individuals and
               organizations with the tools and training needed to thrive in the
               digital era.
             </motion.p>
@@ -331,7 +331,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
             className="text-lg mb-8 max-w-2xl mx-auto"
           >
-            Whether you're looking to upgrade your skills or need digital
+            Whether you&apos;re looking to upgrade your skills or need digital
             services, ASC-cm is your trusted partner.
           </motion.p>
           <motion.div
