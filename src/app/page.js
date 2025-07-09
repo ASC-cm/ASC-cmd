@@ -5,6 +5,7 @@ import Portfolio from "@/components/Portfolio";
 import Skills from "@/components/Skills";
 import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
+import UpcomingEvents from "@/components/UpcomingEvents";
 
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
         <Portfolio />
         <Skills />
         <Testimonials />
+        <UpcomingEvents />
         <ContactForm />
       </main>
     

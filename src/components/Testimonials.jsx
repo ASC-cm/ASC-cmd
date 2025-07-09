@@ -63,7 +63,7 @@ const Testimonials = () => {
                   "{testimonial.content}"
                 </p>
                 <div>
-                  <p className="font-semibold text-lg">{testimonial.name}</p>
+                  <p className="text-black font-semibold text-lg">{testimonial.name}</p>
                   <p className="text-gray-500 text-sm">{testimonial.role}</p>
                 </div>
               </Card>

@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@gsap/react": "^2.1.2",
     "@types/gsap": "^1.20.2",
     "framer-motion": "^12.23.0",
     "gsap": "^3.13.0",
