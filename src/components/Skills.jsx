@@ -36,7 +36,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <section className="py-7 bg-gray-50" ref={sectionRef} id="skills">
+    <section className="py-12 bg-gray-50" ref={sectionRef} id="skills">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <SectionTitle
           title="Technical Stack"
