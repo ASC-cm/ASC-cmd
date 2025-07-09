@@ -140,7 +140,7 @@ const Services = () => {
                   {service.icon}
                 </motion.div>
                 <motion.h3
-                  className="text-xl font-bold mb-2"
+                  className="text-xl font-bold mb-2 text-black"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.15 + 0.3 }}

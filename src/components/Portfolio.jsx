@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
@@ -68,40 +67,46 @@ const Portfolio = () => {
   }, []);
 
   return (
-    <section className="py-5 bg-white" id="portfolio" ref={sectionRef}>
-      <div className="max-w-6xl mx-auto text-center mb-20">
-        <motion.span
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="inline-block text-sm font-medium text-primary mb-4 tracking-wider uppercase"
-        >
-          Portfolio
-        </motion.span>
+    <section
+      className="py-5 md:py-24 lg:py-32 bg-white"
+      id="portfolio"
+      ref={sectionRef}
+    >
+      <div className="px-6 sm:px-8 md:px-10 lg:px-12 max-w-7xl mx-auto">
+        <div className="text-center mb-16 lg:mb-24">
+          <motion.span
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            className="inline-block text-sm md:text-base font-medium text-black text-primary mb-4 tracking-wider uppercase"
+          >
+            Portfolio
+          </motion.span>
 
-        <motion.h2
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-          className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6"
-        >
-          Selected <span className="text-primary">Case Studies</span>
-        </motion.h2>
+          <motion.h2
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6"
+          >
+            Selected <span className="text-primary">Case Studies</span>
+          </motion.h2>
 
-        <motion.p
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
-          className="text-xl text-gray-600 leading-relaxed"
-        >
-          A curated collection of my most impactful projects, showcasing
-          innovative solutions and measurable results.
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+            className="text-base sm:text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed"
+          >
+            A curated collection of my most impactful projects, showcasing
+            innovative solutions and measurable results.
+          </motion.p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {projects.map((project, index) => (
             <motion.article
               key={index}
@@ -115,7 +120,7 @@ const Portfolio = () => {
               }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <div className="relative overflow-hidden rounded-2xl aspect-[4/3] shadow-xl border border-gray-200">
+              <div className="relative overflow-hidden rounded-xl md:rounded-2xl aspect-[4/3] shadow-lg border border-gray-200">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 z-10" />
 
                 <Image
@@ -136,23 +141,26 @@ const Portfolio = () => {
                 />
               </div>
 
-              <div className="mt-8 flex-1 flex flex-col px-2">
-                <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="text-xs font-medium px-3 py-1.5 bg-gray-100 text-gray-800 rounded-full">
+              <div className="mt-6 md:mt-8 flex-1 flex flex-col px-2">
+                <div className="flex flex-wrap items-center gap-2 mb-3 md:mb-4">
+                  <span className="text-xs md:text-sm font-medium px-3 py-1.5 bg-gray-100 text-gray-800 rounded-full">
                     {project.category}
                   </span>
                   {project.tech.map((tech, i) => (
-                    <span key={i} className="text-xs font-medium text-gray-500">
+                    <span
+                      key={i}
+                      className="text-xs md:text-sm font-medium text-gray-600"
+                    >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3">
                   {project.title}
                 </h3>
 
-                <p className="text-gray-600 mb-6 flex-1">
+                <p className="text-gray-700 text-sm md:text-base mb-4 md:mb-6 flex-1">
                   {project.description}
                 </p>
 
@@ -167,7 +175,7 @@ const Portfolio = () => {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                    className="inline-flex items-center gap-2 text-sm md:text-base font-semibold text-black hover:text-primary-dark transition-colors"
                     variants={{
                       initial: { x: 0 },
                       hover: { x: 6 },
