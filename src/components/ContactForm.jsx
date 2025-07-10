@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import SectionTitle from "./common/SectionTitle";
-import Button from "./common/Button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { toast } from "react-hot-toast";
 
@@ -30,7 +29,6 @@ const ContactForm = () => {
     try {
       const supabase = createClientComponentClient();
 
-      // Validate form data
       if (
         !formData.name ||
         !formData.email ||
@@ -40,7 +38,6 @@ const ContactForm = () => {
         throw new Error("Please fill all required fields");
       }
 
-      // Email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
         throw new Error("Please enter a valid email address");
@@ -60,7 +57,6 @@ const ContactForm = () => {
         throw error;
       }
 
-      // Success toast
       toast.success("Message sent successfully!", {
         duration: 5000,
         position: "top-center",
@@ -70,7 +66,6 @@ const ContactForm = () => {
         },
       });
 
-      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -78,7 +73,6 @@ const ContactForm = () => {
         message: "",
       });
     } catch (error) {
-      // Error toast
       toast.error(
         error.message || "Failed to send message. Please try again.",
         {
@@ -169,15 +163,15 @@ const ContactForm = () => {
             </div>
 
             <div>
-              <Button
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full md:w-auto text-black"
+                className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 disabled:opacity-50"
               >
                 {isSubmitting ? (
-                  <span className="flex items-center justify-center text-black">
+                  <span className="flex items-center justify-center bg-blue-600 text-black">
                     <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-black"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -201,7 +195,7 @@ const ContactForm = () => {
                 ) : (
                   "Send Message"
                 )}
-              </Button>
+              </button>
             </div>
           </form>
         </div>

@@ -10,7 +10,7 @@ const Button = ({
   ...props
 }) => {
   const variants = {
-    primary: "bg-primary text-white hover:bg-primary-dark",
+    primary: "bg-blue-600 text-black hover:bg-blue-900",
     outline:
       "border border-primary text-primary hover:bg-primary hover:text-white",
     light: "bg-white text-gray-800 hover:bg-gray-100",
