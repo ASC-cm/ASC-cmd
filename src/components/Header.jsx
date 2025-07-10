@@ -92,8 +92,8 @@ const Header = () => {
               className="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 p-6 space-y-6"
             >
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-lg font-bold text-gray-900">ASC-CM</span>
                 <FaCode className="text-blue-600" size={16} />
+                <span className="text-lg font-bold text-blue-900">ASC-CM</span>
               </div>
               {navLinks.map((link) => (
                 <Link

@@ -39,22 +39,23 @@ export default async function handler(req, res) {
       to: email,
       subject: "Thanks for subscribing!",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h1 style="color: #2563eb;">Welcome to our newsletter!</h1>
-          <p>Thank you for subscribing to our healthtips. Here's what you can expect:</p>
-          <ul>
-            <li>Weekly health tips</li>
-            <li>Exclusive offers</li>
-            <li>Latest product updates</li>
-          </ul>
-          <p>If you didn't request this subscription, please ignore this email.</p>
-          <p style="margin-top: 20px; color: #6b7280;">
-            Best regards,<br/>
-            The Health Team
-          </p>
-        </div>
+       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+         <h1 style="color: #2563eb;">Welcome to ASC-cm Tech!</h1>
+          <p>Thank you for subscribing to our newsletter. Here's what you can expect from us:</p>
+        <ul>
+          <li>Latest updates in web and software development</li>
+          <li>Exclusive tips on building fast, modern websites</li>
+          <li>Product launches, tutorials, and tech events</li>
+        </ul>
+        <p>If you didn’t subscribe, you can safely ignore this message.</p>
+        <p style="margin-top: 20px; color: #6b7280;">
+          Best regards,<br/>
+          The ASC-cm Tech Team<br/>
+          <a href="https://asc-cm.com.ng" style="color: #2563eb;">asc-cm.com.ng</a>
+        </p>
+      </div>
       `,
-      text: `Welcome to our healthtips!\n\nThank you for subscribing. You'll receive weekly health tips, exclusive offers, and product updates.\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nThe Health Team`,
+      text: `Welcome to our Tech news!\n\nThank you for subscribing. You'll receive weekly health tips, exclusive offers, and product updates.\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nThe Health Team`,
     });
 
     if (error) {

@@ -86,7 +86,7 @@ export default function RootLayout({ children }) {
       "ASC-cm is a web development and digital marketing company providing scalable online solutions.",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "5 Ima Inyang Street, off FCMB, Abak Road",
+      streetAddress: "Jubilee School Road",
       addressLocality: "Uyo",
       addressRegion: "Akwa Ibom",
       postalCode: "520102",
@@ -94,9 +94,9 @@ export default function RootLayout({ children }) {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+234-813-000-0000",
+      telephone: "+234-7034418309",
       contactType: "Customer Service",
-      email: "info@asc-cm.com",
+      email: "contact@asc-cm.com.ng",
       availableLanguage: "English",
     },
     sameAs: [
