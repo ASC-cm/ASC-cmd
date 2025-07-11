@@ -3,13 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Optional font variables if you're using them in Tailwind */
+  --font-sans: var(--font-geist-sans, Arial, sans-serif);
+  --font-mono: var(--font-geist-mono, monospace);
 }
 
 @media (prefers-color-scheme: dark) {
