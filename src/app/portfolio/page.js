@@ -48,7 +48,7 @@ export default function PortfolioPage() {
       description: "Learning management system for tech training programs",
       tags: ["Web Development", "Training"],
       image: "/images/15.jpg",
-      link: "#",
+      link: "https://www.asc-cm.com.ng/",
     },
   ];
 

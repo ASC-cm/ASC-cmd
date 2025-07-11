@@ -127,7 +127,7 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} ${robotoMono.variable} antialiased bg-white text-gray-900 min-h-screen flex flex-col`}
       >
         <Header />
-        <main className="flex-grow">{children}</main>
+        <main>{children}</main>
         <CookieBanner />
         <Footer />
         <Toaster

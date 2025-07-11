@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <header className={headerClasses}>
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="flex items-center">
@@ -41,12 +41,12 @@ const Header = () => {
             </div>
           </div>
 
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wider transition duration-300 relative group"
+                className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wider transition duration-300 relative group whitespace-nowrap px-2"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
@@ -80,7 +80,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Sidebar */}
+      {/* Mobile Sidebar - Reduced Width */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -89,9 +89,9 @@ const Header = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3 }}
-              className="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 p-6 space-y-6"
+              className="fixed top-0 left-0 h-full w-56 bg-white shadow-xl z-50 p-4 space-y-4 overflow-y-auto"
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-4">
                 <FaCode className="text-blue-600" size={16} />
                 <span className="text-lg font-bold text-blue-900">ASC-CM</span>
               </div>
