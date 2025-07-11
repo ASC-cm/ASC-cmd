@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://asc-cm.com.ng
+
+# Sitemaps
+Sitemap: https://asc-cm.com.ng/sitemap.xml

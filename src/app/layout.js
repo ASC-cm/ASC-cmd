@@ -124,10 +124,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${inter.variable} ${robotoMono.variable} antialiased bg-white text-gray-900 min-h-screen flex flex-col`}
+        className={`${inter.variable} ${robotoMono.variable} antialiased bg-white text-gray-900 min-h-screen flex flex-col w-full overflow-x-hidden`}
       >
         <Header />
-        <main>{children}</main>
+        <main className="flex-1 w-full max-w-full overflow-x-hidden">
+          {children}
+        </main>
         <CookieBanner />
         <Footer />
         <Toaster
