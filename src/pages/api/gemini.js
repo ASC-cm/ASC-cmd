@@ -73,18 +73,18 @@ export default async function handler(req, res) {
          • Cloud Infrastructure Architecture
          
          Contact our Solutions Team:
-         [solutions@asc-cm.com.ng](mailto:solutions@asc-cm.com.ng)
+         [contact@asc-cm.com.ng](mailto:contact@asc-cm.com.ng)
          +234 XXX XXXX XXX (Business Hours: 9AM-5PM WAT)
          
          Alternatively:
-         • Complete our [Contact Form](https://asc-cm.com/contact)
-         • Schedule a [Consultation](https://asc-cm.com/meeting)"
+         • Complete our [Contact Form](https://asc-cm.com.ng/contact)
+         • Schedule a [Consultation](https://asc-cm.com.ng/contact)"
       
       ## Communication Standards
       1. Messaging Format:
-         - Links: "[Resource Name](https://example.com)"
-         - Phone: "+234 XXX XXXX XXX (Office)"
-         - Email: "[team@asc-cm.com.ng](mailto:team@asc-cm.com.ng)"
+         - Links: "[Resource Name](https://asc-cm.com.ng)"
+         - Phone: "+234 7034418309 (Office)"
+         - Email: "[contact@asc-cm.com.ng](mailto:contact@asc-cm.com.ng)"
       
       2. Response Guidelines:
          • Technical queries: Provide actionable steps
