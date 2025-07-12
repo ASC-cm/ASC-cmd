@@ -48,10 +48,10 @@ export default function PrivacyPolicy() {
                 <li>
                   Our primary website (
                   <a
-                    href="https://www.asc-cm.com"
+                    href="https://www.asc-cm.com.ng"
                     className="text-blue-400 hover:underline"
                   >
-                    asc-cm.com
+                    asc-cm.com.ng
                   </a>
                   ) and all subdomains
                 </li>
@@ -314,7 +314,7 @@ export default function PrivacyPolicy() {
               <p className="mt-6">
                 To exercise these rights, contact us at{" "}
                 <a
-                  href="mailto:privacy@asc-cm.com"
+                  href="mailto:contact@asc-cm.com.ng"
                   className="text-blue-400 hover:underline"
                 >
                   privacy@asc-cm.com
@@ -450,7 +450,7 @@ export default function PrivacyPolicy() {
                     <br />
                     Email:{" "}
                     <a
-                      href="mailto:dpo@asc-cm.com"
+                      href="mailto:contact@asc-cm.com.ng"
                       className="text-blue-400 hover:underline"
                     >
                       contact@asc-cm.com.ng
@@ -466,7 +466,7 @@ export default function PrivacyPolicy() {
                   <address className="not-italic">
                     Email:{" "}
                     <a
-                      href="mailto:privacy@asc-cm.com"
+                      href="mailto:contact@asc-cm.com.ng"
                       className="text-blue-400 hover:underline"
                     >
                       contact@asc-cm.com.ng
@@ -474,19 +474,19 @@ export default function PrivacyPolicy() {
                     <br />
                     Support:{" "}
                     <a
-                      href="mailto:support@asc-cm.com"
+                      href="mailto:contact@asc-cm.com.ng"
                       className="text-blue-400 hover:underline"
                     >
-                      contact@asc-cm.com.ng
+                      support@asc-cm.com.ng
                     </a>
                   </address>
                   <p className="mt-4">
                     For urgent security issues:{" "}
                     <a
-                      href="mailto:security@asc-cm.com"
+                      href="mailto:contact@asc-cm.com.ng"
                       className="text-blue-400 hover:underline"
                     >
-                      contact@asc-cm.com.ng
+                      security@asc-cm.com.ng
                     </a>
                   </p>
                 </div>

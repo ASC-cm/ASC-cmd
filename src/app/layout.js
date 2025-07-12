@@ -19,7 +19,7 @@ const robotoMono = Roboto_Mono({
 
 export const metadata = {
   siteName: "ASC-cm </>",
-  metadataBase: new URL("https://asc-cm.com"),
+  metadataBase: new URL("https://asc-cm.com.ng"),
   title: {
     default: "ASC-cm </> | Tech Solutions & Web Services",
     template: "%s | ASC-cm </>",
@@ -32,6 +32,10 @@ export const metadata = {
     "SEO services",
     "digital marketing",
     "business websites",
+    "software solutions",
+    "software training",
+    "mobile app development",
+    "cloud solutions",
     "ASC-cm",
   ],
   robots: {
@@ -48,7 +52,7 @@ export const metadata = {
     title: "ASC-cm </> | Your Tech & Web Partner",
     description:
       "Smart web development and business automation tools tailored to your brand.",
-    url: "https://asc-cm.com",
+    url: "https://asc-cm.com.ng",
     siteName: "ASC-cm",
     images: [
       {
@@ -80,8 +84,8 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "WebDevelopmentCompany",
     name: "ASC-cm </>",
-    url: "https://asc-cm.com",
-    logo: "https://asc-cm.com/logo.png",
+    url: "https://asc-cm.com.ng",
+    logo: "https://asc-cm.com.ng/logo.png",
     description:
       "ASC-cm is a web development and digital marketing company providing scalable online solutions.",
     address: {
@@ -146,7 +150,7 @@ export default function RootLayout({ children }) {
               maxWidth: "100%",
             },
             success: {
-              iconTheme: { primary: "#10B981", secondary: "#ffffff" },
+              iconTheme: { primary: "#2910b9ff", secondary: "#ffffff" },
             },
             error: {
               iconTheme: { primary: "#EF4444", secondary: "#ffffff" },

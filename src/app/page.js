@@ -53,7 +53,7 @@ export default function Home() {
           aria-label="Ask AI"
         >
           <MessageSquare size={24} />
-          <span className="font-semibold text-base">Ask AI</span>
+          <span className="font-semibold text-base">Ask Me</span>
         </button>
 
         {/* Chatbox */}
@@ -67,7 +67,7 @@ export default function Home() {
           >
             {/* Header */}
             <div className="flex justify-between items-center p-3 bg-blue-600 text-white rounded-t-lg flex-shrink-0">
-              <span className="font-semibold">AI Assistant</span>
+              <span className="font-semibold">ASC-cm Assistant</span>
               <div className="flex items-center space-x-2">
                 <button
                   onClick={handleNewChat}
