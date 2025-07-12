@@ -9,6 +9,7 @@ import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
 import UpcomingEvents from "@/components/UpcomingEvents";
 import AIChatboxContent from "@/components/AIChatboxContent";
+import StatisticsSection from "@/components/StatisticsSection";
 
 export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -43,9 +44,9 @@ export default function Home() {
         <Portfolio />
         <Skills />
         <Testimonials />
+        <StatisticsSection />
         <UpcomingEvents />
         <ContactForm />
-
         {/* Ask AI Button */}
         <button
           onClick={toggleChat}
@@ -55,7 +56,6 @@ export default function Home() {
           <MessageSquare size={24} />
           <span className="font-semibold text-base">Ask Me</span>
         </button>
-
         {/* Chatbox */}
         {isChatOpen && (
           <div

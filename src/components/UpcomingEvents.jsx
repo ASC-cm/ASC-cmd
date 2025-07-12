@@ -49,7 +49,7 @@ export default function UpcomingEvents() {
   const events = [
     {
       id: 1,
-      title: "AI & Machine Learning Summit Africa",
+      title: "AI & Machine Learning Summit Nigeria",
       date: "October 15-17, 2025",
       time: "9:00 AM - 5:00 PM",
       location: "Landmark Centre, Lagos",
@@ -73,7 +73,7 @@ export default function UpcomingEvents() {
     },
     {
       id: 3,
-      title: "Cloud Native & DevOps Africa",
+      title: "Cloud Native & DevOps Summit",
       date: "February 20-22, 2026",
       time: "8:30 AM - 4:30 PM",
       location: "Sandton Convention Centre, Johannesburg",

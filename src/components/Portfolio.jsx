@@ -38,7 +38,7 @@ const Portfolio = () => {
       image: "/images/5.png",
       hoverImage: "/images/6.png",
       link: "https://hotel-website-nine-zeta.vercel.app/",
-      tech: ["React", "Styled Components", "REST API"],
+      tech: ["React", "Django", "REST API"],
     },
   ];
 
