@@ -74,7 +74,7 @@ export default async function handler(req, res) {
          
          Contact our Solutions Team:
          [contact@asc-cm.com.ng](mailto:contact@asc-cm.com.ng)
-         +234 703 441 8309 (Business Hours: 9AM-5PM WAT)
+         +234 703 441 8309 (Business Hours: 9AM-6PM WAT)
          
          Alternatively:
          • Complete our [Contact Form](https://asc-cm.com.ng/contact)
