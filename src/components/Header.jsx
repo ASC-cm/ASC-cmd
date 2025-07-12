@@ -37,7 +37,7 @@ const Header = () => {
           <div className="flex items-center gap-3">
             <div className="flex items-center">
               <span className="text-xl font-bold text-gray-900">ASC-CM</span>
-              <FaCode className="ml-2 text-blue-600" size={18} />
+              <FaCode className="ml-2 text-gray-900" size={18} />
             </div>
           </div>
 
@@ -92,7 +92,7 @@ const Header = () => {
               className="fixed top-0 left-0 h-full w-56 bg-white shadow-xl z-50 p-4 space-y-4 overflow-y-auto"
             >
               <div className="flex items-center gap-3 mb-4">
-                <FaCode className="text-blue-600" size={16} />
+                <FaCode className="text-blue-900" size={16} />
                 <span className="text-lg font-bold text-blue-900">ASC-CM</span>
               </div>
               {navLinks.map((link) => (
