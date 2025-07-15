@@ -80,7 +80,7 @@ const Services = () => {
       icon: "🏢",
     },
     {
-      title: "Web Applications",
+      title: "Mobile Applications",
       description: "Custom SaaS solutions for your business needs.",
       icon: "📱",
     },

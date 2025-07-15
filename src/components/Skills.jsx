@@ -8,6 +8,7 @@ const SKILLS = [
   { name: "React", level: 90, category: "Frontend" },
   { name: "Vite + React", level: 85, category: "Frontend", tag: "Modern" },
   { name: "Tailwind CSS", level: 85, category: "Frontend" },
+  { name: "React-nactve", level: 90, category: "Frontend" },
   { name: "JavaScript", level: 90, category: "Frontend" },
   { name: "Node.js", level: 80, category: "Backend" },
   { name: "Django", level: 75, category: "Backend" },
