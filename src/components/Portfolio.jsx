@@ -11,13 +11,23 @@ gsap.registerPlugin(ScrollTrigger);
 const Portfolio = () => {
   const projects = [
     {
+      title: "NGO E-Commerce Store",
+      description:
+        "Elegant platform showcasing humanitarian efforts with empowering small businesses to excel and volunteer management.",
+      category: "Business Website",
+      image: "/images/hap1.png",
+      hoverImage: "/images/hap2.png",
+      link: "https://5hapasset.com",
+      tech: ["React", "Django", "REST API"],
+    },
+    {
       title: "School Website",
       description:
         "Dynamic, user-friendly platform enhancing communication for students, parents, and staff.",
       category: "Web Development",
-      image: "/images/3.png",
-      hoverImage: "/images/4.png",
-      link: "https://legendcollegeuyo.com.ng/",
+      image: "/images/g1.png",
+      hoverImage: "/images/g2.png",
+      link: "https://www.gilfordmemorialschools.com",
       tech: ["React", "Next.js", "Tailwind CSS"],
     },
     {
@@ -29,16 +39,6 @@ const Portfolio = () => {
       hoverImage: "/images/2.png",
       link: "https://99healthtips.com/",
       tech: ["JavaScript", "Django", "Supabase"],
-    },
-    {
-      title: "Hotel Booking System",
-      description:
-        "Elegant platform showcasing hospitality offerings with integrated booking functionality.",
-      category: "Business Website",
-      image: "/images/5.png",
-      hoverImage: "/images/6.png",
-      link: "https://hotel-website-nine-zeta.vercel.app/",
-      tech: ["React", "Django", "REST API"],
     },
   ];
 
@@ -91,7 +91,7 @@ const Portfolio = () => {
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6"
           >
-            Selected <span className="text-primary">Case Studies</span>
+            Recent <span className="text-primary">Case Studies</span>
           </motion.h2>
 
           <motion.p
