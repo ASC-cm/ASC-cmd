@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 
 // Django API URL - change this to your Django server URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://asc-api-nyyk.onrender.com/api";
 
 export default function Footer() {
   const [email, setEmail] = useState("");

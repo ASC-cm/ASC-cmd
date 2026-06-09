@@ -3,7 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { SendHorizonal, AlertCircle, RefreshCw } from "lucide-react";
 
 // Django API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://asc-api-nyyk.onrender.com/api";
 
 export default function AIChatboxContent() {
   const [messages, setMessages] = useState([]);

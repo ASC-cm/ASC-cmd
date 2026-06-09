@@ -4,7 +4,8 @@ import SectionTitle from "./common/SectionTitle";
 import { toast } from "react-hot-toast";
 
 // Django API URL - change this to your Django server URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://asc-api-nyyk.onrender.com/api";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
