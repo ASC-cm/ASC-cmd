@@ -6,15 +6,21 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 
+// Django API URL - change this to your Django server URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email address");
       return;
     }
@@ -23,27 +29,53 @@ export default function Footer() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("/api/subscribe", {
+      // Send to Django backend newsletter endpoint
+      const response = await fetch(`${API_URL}/newsletter/subscribe/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email: email.trim(),
+          name: name.trim() || email.split("@")[0],
+          source: "footer_newsletter",
+        }),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (!res.ok) {
-        throw new Error(data.message || "Subscription failed");
+      if (!response.ok) {
+        throw new Error(data.error || data.message || "Subscription failed");
       }
 
       toast.success(
-        "Thank you for subscribing! You'll receive our updates soon."
+        data.message ||
+          "Thank you for subscribing! You'll receive our updates soon.",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            background: "#4BB543",
+            color: "#fff",
+          },
+          icon: "✅",
+        },
       );
+
+      // Reset form on success
       setEmail("");
+      setName("");
     } catch (error) {
       console.error("Subscription error:", error);
-      toast.error(error.message || "Failed to subscribe. Please try again.");
+      toast.error(error.message || "Failed to subscribe. Please try again.", {
+        duration: 5000,
+        position: "top-right",
+        style: {
+          background: "#FF3333",
+          color: "#fff",
+        },
+        icon: "❌",
+      });
     } finally {
       setLoading(false);
       setIsSubmitting(false);
@@ -91,7 +123,7 @@ export default function Footer() {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={loading || isSubmitting}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-400 rounded-md font-medium hover:from-blue-700 hover:to-blue-500 transition-all shadow-md disabled:opacity-70"
+                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-400 rounded-md font-medium hover:from-blue-700 hover:to-blue-500 transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <span className="flex items-center justify-center">
@@ -136,18 +168,28 @@ export default function Footer() {
                   <FaMapMarkerAlt className="text-blue-400 mt-1 flex-shrink-0" />
                   <div>
                     <p>
-                      <strong>Office:</strong> 1 Jubilee School Road, Uyo,
-                      Akwa Ibom State.
+                      <strong>Office:</strong> 1 Jubilee School Road, Uyo, Akwa
+                      Ibom State.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaEnvelope className="text-blue-400 flex-shrink-0" />
-                  <p>contact@asc-cm.com.ng</p>
+                  <a
+                    href="mailto:contact@asc-cm.com.ng"
+                    className="hover:text-blue-400 transition-colors duration-200"
+                  >
+                    contact@asc-cm.com.ng
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaPhoneAlt className="text-blue-400 flex-shrink-0" />
-                  <p>+234 703 441 8309</p>
+                  <a
+                    href="tel:+2347034418309"
+                    className="hover:text-blue-400 transition-colors duration-200"
+                  >
+                    +234 703 441 8309
+                  </a>
                 </div>
               </div>
             </div>
@@ -163,6 +205,8 @@ export default function Footer() {
               <span className="text-blue-400 font-semibold">
                 <Link
                   href="https://portfolio-gamma-ten-75.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-blue-400 transition-colors duration-200"
                 >
                   ASC-cm

@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { toast } from "react-hot-toast";
+
+// Django API URL - change this to your Django server URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 const ContactPage = () => {
   return (
@@ -247,6 +249,7 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -266,8 +269,7 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const supabase = createClientComponentClient();
-
+      // Validate form
       if (
         !formData.name ||
         !formData.email ||
@@ -282,36 +284,58 @@ const ContactForm = () => {
         throw new Error("Please enter a valid email address");
       }
 
-      const { error } = await supabase.from("contact_messages").insert([
-        {
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-
-      if (error) {
-        throw error;
+      // Validate phone (optional but if provided, validate format)
+      if (formData.phone) {
+        const phoneRegex = /^\+?[0-9]{10,15}$/;
+        if (!phoneRegex.test(formData.phone.replace(/\s/g, ""))) {
+          throw new Error("Please enter a valid phone number (10-15 digits)");
+        }
       }
 
-      toast.success("Message sent successfully!", {
-        duration: 5000,
-        position: "top-center",
-        style: {
-          background: "#4BB543",
-          color: "#fff",
+      // Send to Django backend
+      const response = await fetch(`${API_URL}/contact/submit/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
 
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || "Failed to send message");
+      }
+
+      toast.success(
+        data.message ||
+          "Message sent successfully! We'll get back to you soon.",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            background: "#4BB543",
+            color: "#fff",
+          },
+        },
+      );
+
+      // Reset form
       setFormData({
         name: "",
         email: "",
+        phone: "",
         subject: "",
         message: "",
       });
     } catch (error) {
+      console.error("Submission error:", error);
       toast.error(
         error.message || "Failed to send message. Please try again.",
         {
@@ -321,9 +345,8 @@ const ContactForm = () => {
             background: "#FF3333",
             color: "#fff",
           },
-        }
+        },
       );
-      console.error("Submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -336,7 +359,7 @@ const ContactForm = () => {
       </h3>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label
               htmlFor="name"
@@ -373,6 +396,29 @@ const ContactForm = () => {
               placeholder="your@email.com"
             />
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Phone Number (Optional)
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              placeholder="+234 703 441 8309"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Include country code for faster response
+            </p>
+          </div>
           <div>
             <label
               htmlFor="subject"
@@ -391,24 +437,25 @@ const ContactForm = () => {
               placeholder="How can we help?"
             />
           </div>
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Your Message *
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              placeholder="Tell us about your project or inquiry..."
-            ></textarea>
-          </div>
+        </div>
+
+        <div>
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Your Message *
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            placeholder="Tell us about your project or inquiry..."
+          ></textarea>
         </div>
 
         <div className="pt-2">

@@ -1,13 +1,16 @@
 "use client";
 import { useState } from "react";
 import SectionTitle from "./common/SectionTitle";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { toast } from "react-hot-toast";
+
+// Django API URL - change this to your Django server URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -27,8 +30,7 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const supabase = createClientComponentClient();
-
+      // Validate form fields
       if (
         !formData.name ||
         !formData.email ||
@@ -38,41 +40,84 @@ const ContactForm = () => {
         throw new Error("Please fill all required fields");
       }
 
+      // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
         throw new Error("Please enter a valid email address");
       }
 
-      const { error } = await supabase.from("contact_messages").insert([
-        {
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-
-      if (error) {
-        throw error;
+      // Validate phone (optional but if provided, validate format)
+      if (formData.phone) {
+        const phoneRegex = /^\+?[0-9]{10,15}$/;
+        const cleanPhone = formData.phone.replace(/[\s\-\(\)]/g, "");
+        if (!phoneRegex.test(cleanPhone)) {
+          throw new Error("Please enter a valid phone number (10-15 digits)");
+        }
       }
 
-      toast.success("Message sent successfully!", {
-        duration: 5000,
-        position: "top-center",
-        style: {
-          background: "#4BB543",
-          color: "#fff",
+      // Validate name length
+      if (formData.name.length < 2) {
+        throw new Error("Please enter your full name");
+      }
+
+      // Validate subject length
+      if (formData.subject.length < 3) {
+        throw new Error("Subject must be at least 3 characters");
+      }
+
+      // Validate message length
+      if (formData.message.length < 10) {
+        throw new Error("Message must be at least 10 characters");
+      }
+
+      // Send to Django backend contact endpoint
+      const response = await fetch(`${API_URL}/contact/submit/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone ? formData.phone.trim() : "",
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        }),
       });
 
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || "Failed to send message");
+      }
+
+      // Success toast
+      toast.success(
+        data.message ||
+          "Message sent successfully! We'll get back to you soon.",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            background: "#4BB543",
+            color: "#fff",
+          },
+          icon: "✅",
+        },
+      );
+
+      // Reset form on success
       setFormData({
         name: "",
         email: "",
+        phone: "",
         subject: "",
         message: "",
       });
     } catch (error) {
+      console.error("Submission error:", error);
+
+      // Error toast
       toast.error(
         error.message || "Failed to send message. Please try again.",
         {
@@ -82,9 +127,9 @@ const ContactForm = () => {
             background: "#FF3333",
             color: "#fff",
           },
-        }
+          icon: "❌",
+        },
       );
-      console.error("Submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -114,6 +159,7 @@ const ContactForm = () => {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="John Doe"
                 />
               </div>
               <div>
@@ -128,23 +174,44 @@ const ContactForm = () => {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="john@example.com"
                 />
               </div>
             </div>
 
-            <div>
-              <label htmlFor="subject" className="block text-gray-700 mb-2">
-                Subject *
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="phone" className="block text-gray-700 mb-2">
+                  Phone Number (Optional)
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="+234 703 441 8309"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Include country code for faster response
+                </p>
+              </div>
+              <div>
+                <label htmlFor="subject" className="block text-gray-700 mb-2">
+                  Subject *
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="How can we help you?"
+                />
+              </div>
             </div>
 
             <div>
@@ -159,6 +226,7 @@ const ContactForm = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                placeholder="Please describe your inquiry in detail..."
               ></textarea>
             </div>
 
@@ -166,12 +234,12 @@ const ContactForm = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 disabled:opacity-50"
+                className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
-                  <span className="flex items-center justify-center bg-blue-600 text-black">
+                  <>
                     <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-black"
+                      className="animate-spin h-5 w-5 text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -191,7 +259,7 @@ const ContactForm = () => {
                       ></path>
                     </svg>
                     Sending...
-                  </span>
+                  </>
                 ) : (
                   "Send Message"
                 )}

@@ -1,13 +1,16 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { SendHorizonal, Bot, AlertCircle, RefreshCw } from "lucide-react";
+import { SendHorizonal, AlertCircle, RefreshCw } from "lucide-react";
+
+// Django API URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 export default function AIChatboxContent() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [apiStatus, setApiStatus] = useState("checking");
+  const [apiStatus, setApiStatus] = useState("connected"); // Default to connected
   const chatEndRef = useRef(null);
 
   // Auto-scroll
@@ -25,31 +28,7 @@ export default function AIChatboxContent() {
         timestamp: new Date().toISOString(),
       },
     ]);
-
-    // Test API connection on mount
-    testApiConnection();
   }, []);
-
-  const testApiConnection = async () => {
-    try {
-      const response = await fetch("/api/gemini", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: "test connection",
-          history: [],
-        }),
-      });
-
-      if (response.ok) {
-        setApiStatus("connected");
-      } else {
-        setApiStatus("error");
-      }
-    } catch {
-      setApiStatus("error");
-    }
-  };
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -67,9 +46,9 @@ export default function AIChatboxContent() {
     setError(null);
 
     try {
-      console.log("Sending message to API:", input);
+      console.log("Sending message to Django API:", input);
 
-      const response = await fetch("/api/gemini", {
+      const response = await fetch(`${API_URL}/ai/chat/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,17 +86,7 @@ export default function AIChatboxContent() {
 
       const errorMessage = {
         role: "bot",
-        content: `I encountered an error: "${error.message}". 
-
-This might be due to:
-1. API configuration issues
-2. Network connectivity
-3. Service temporarily unavailable
-
-For immediate assistance:
-• Email: contact@asc-cm.com.ng
-• Phone: +234 703 441 8309
-• Website: https://asc-cm.com.ng`,
+        content: `I'm having trouble connecting right now. Please try again later or contact us directly at contact@asc-cm.com.ng`,
         timestamp: new Date().toISOString(),
         isError: true,
       };
@@ -176,28 +145,16 @@ For immediate assistance:
     setApiStatus("connected");
   };
 
-  const retryConnection = () => {
-    testApiConnection();
-    setError(null);
-  };
-
   return (
     <div className="flex flex-col h-full bg-gray-50">
-      {/* Status Bar */}
+      {/* Status Bar - Only show if error */}
       {apiStatus === "error" && (
         <div className="bg-red-50 border-b border-red-200 p-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center text-red-700 text-sm">
               <AlertCircle size={14} className="mr-2" />
-              <span>AI service disconnected</span>
+              <span>Connection issue. Using fallback mode.</span>
             </div>
-            <button
-              onClick={retryConnection}
-              className="text-xs bg-red-100 hover:bg-red-200 px-2 py-1 rounded flex items-center"
-            >
-              <RefreshCw size={12} className="mr-1" />
-              Retry
-            </button>
           </div>
         </div>
       )}
@@ -289,25 +246,6 @@ For immediate assistance:
           >
             Clear Chat
           </button>
-
-          <div className="flex items-center text-xs">
-            <div
-              className={`w-2 h-2 rounded-full mr-2 ${
-                apiStatus === "connected"
-                  ? "bg-green-500 animate-pulse"
-                  : apiStatus === "error"
-                    ? "bg-red-500"
-                    : "bg-yellow-500"
-              }`}
-            ></div>
-            <span className="text-gray-500">
-              {apiStatus === "connected"
-                ? "AI Connected"
-                : apiStatus === "error"
-                  ? "AI Disconnected"
-                  : "Checking..."}
-            </span>
-          </div>
         </div>
       </div>
     </div>

@@ -9,6 +9,9 @@ import { toast } from "react-hot-toast";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+// Django API URL - change this to your Django server URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+
 export default function UpcomingEvents() {
   const containerRef = useRef();
   const sectionRef = useRef();
@@ -16,31 +19,67 @@ export default function UpcomingEvents() {
   const subheadingRef = useRef();
   const cardRefs = useRef([]);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email address");
       return;
     }
+
     setIsSubmitting(true);
+
     try {
-      const res = await fetch("/api/subscribe", {
+      // Send to Django backend newsletter endpoint
+      const response = await fetch(`${API_URL}/newsletter/subscribe/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email: email.trim(),
+          name: name.trim() || email.split("@")[0],
+          source: "upcoming_events_page",
+        }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Subscription failed");
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || "Subscription failed");
+      }
+
       toast.success(
-        "Thank you for subscribing! Check your email for confirmation."
+        data.message ||
+          "Thank you for subscribing! Check your email for confirmation.",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            background: "#4BB543",
+            color: "#fff",
+          },
+        },
       );
+
+      // Reset form
       setEmail("");
+      setName("");
     } catch (error) {
-      toast.error(error.message || "Failed to subscribe. Please try again.");
+      console.error("Subscription error:", error);
+      toast.error(error.message || "Failed to subscribe. Please try again.", {
+        duration: 5000,
+        position: "top-right",
+        style: {
+          background: "#FF3333",
+          color: "#fff",
+        },
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -143,7 +182,7 @@ export default function UpcomingEvents() {
         });
       }
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   const handleLearnMoreClick = (url) => {
@@ -317,9 +356,35 @@ export default function UpcomingEvents() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? "Subscribing..." : "Subscribe"}
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg
+                        className="animate-spin h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Subscribing...
+                    </span>
+                  ) : (
+                    "Subscribe"
+                  )}
                 </button>
               </form>
             </div>
